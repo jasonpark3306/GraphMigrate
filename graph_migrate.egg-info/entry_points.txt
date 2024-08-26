@@ -1,3 +1,0 @@
-[console_scripts]
-graph-migrate = main:main
-
