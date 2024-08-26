@@ -1,0 +1,7 @@
+setup.py
+graph_migrate.egg-info/PKG-INFO
+graph_migrate.egg-info/SOURCES.txt
+graph_migrate.egg-info/dependency_links.txt
+graph_migrate.egg-info/entry_points.txt
+graph_migrate.egg-info/requires.txt
+graph_migrate.egg-info/top_level.txt

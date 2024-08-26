@@ -1,6 +1,8 @@
 from setuptools import setup, find_packages
 
-long_description = "A tool for migrating data between different graph databases"
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
+
 
 setup(
     name="graph-migrate",
