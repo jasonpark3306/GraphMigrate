@@ -47,10 +47,10 @@ from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from util import DraggableGraph, CypherHighlighter, DbConfigEditor, MigrationReport, MigrationWorker, CsvHighlighter, CsvViewerDialog
 import random
 
-class GraphMigrate(QMainWindow):
+class Migrate(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("RDBMS/NOSQL Data Migration Tool v0.1")
+        self.setWindowTitle("Graph Migrate 0.5")
         self.setGeometry(100, 100, 1200, 800)
 
         # Set up logging
@@ -2296,11 +2296,11 @@ class GraphMigrate(QMainWindow):
 if __name__ == "__main__":
     locale.setlocale(locale.LC_ALL, '')
     app = QApplication(sys.argv)
-    app.setApplicationName("Database Viewer")
-    app.setApplicationDisplayName("Database Viewer")
+    app.setApplicationName("Graph Migrate")
+    app.setApplicationDisplayName("Graph Migrate")
     app.setApplicationVersion("1.0")
     
-    viewer = DatabaseViewer()
-    viewer.show()
+    m = Migrate()
+    m.show()
     sys.exit(app.exec())                 
                                          
