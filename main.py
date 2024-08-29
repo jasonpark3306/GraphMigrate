@@ -90,7 +90,8 @@ class Migrate(QMainWindow):
 
     def load_and_apply_stylesheet(self, style_file):
         config = configparser.ConfigParser()
-        config.read(style_file)
+        style_path = os.path.join('conf', style_file)
+        config.read(style_path)
         stylesheet = config['Style']['stylesheet']
         self.setStyleSheet(stylesheet)
         self.log_message("UI", f"Applied stylesheet from {style_file}", "INFO")
@@ -272,7 +273,8 @@ class Migrate(QMainWindow):
     def load_config(self):
         self.config = configparser.ConfigParser()
         try:
-            self.config.read('db.ini')
+            config_path = os.path.join('conf', 'db.ini')
+            self.config.read(config_path)
             if not self.config.sections():
                 raise ValueError("No sections found in db.ini")
             self.log_message("Config", "Configuration loaded successfully", "INFO")
