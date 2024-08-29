@@ -78,6 +78,7 @@ class Migrate(QMainWindow):
         self.worker = None
         
         self.load_config()  # Load config first
+
         self.init_ui()  # Then initialize UI
         self.connect_to_databases()  # Finally connect to databases
 
@@ -1659,15 +1660,6 @@ class Migrate(QMainWindow):
             session.run(query, params)
 
 
-    def get_relationship_types(self):
-        try:
-            with self.neo4j_driver.session() as session:
-                result = session.run("CALL db.relationshipTypes()")
-                return sorted([record["relationshipType"] for record in result])
-        except Exception as e:
-            self.log_message("Neo4j", f"Error fetching relationship types: {str(e)}", "ERROR")
-            return []
-
     def setup_relate_tab_ui(self, parent):
         layout = QVBoxLayout()
 
@@ -2232,7 +2224,26 @@ class Migrate(QMainWindow):
             self.log_message("Neo4j", f"Error getting label properties: {str(e)}", "ERROR")
             return []
 
-
+    def get_relationship_types(self):
+        try:
+            # Check if the driver is not connected or closed
+            if not hasattr(self, 'neo4j_driver') or self.neo4j_driver is None:
+                #self.log_message("Neo4j", "Not connected to Neo4j. Attempting to connect...", "INFO")
+                self.connect_neo4j()
+            
+            if self.neo4j_driver is None:
+                self.log_message("Neo4j", "Failed to connect to Neo4j.", "ERROR")
+                return []
+            
+            # Now use the driver to execute the query
+            with self.neo4j_driver.session() as session:
+                result = session.run("CALL db.relationshipTypes()")
+                return sorted([record["relationshipType"] for record in result])
+        except Exception as e:
+            self.log_message("Neo4j", f"Error fetching relationship types: {str(e)}", "ERROR")
+            return []
+    
+        
     def refresh_relationship_types(self):
         current_text = self.relationship_name_combo.currentText()
         self.relationship_name_combo.clear()
