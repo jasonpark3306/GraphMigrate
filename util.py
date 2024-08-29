@@ -290,7 +290,11 @@ class DbConfigEditor(QMainWindow):
         super().__init__()
         self.setWindowTitle("db.ini Editor")
         self.config = configparser.ConfigParser()
-        self.config.read('db.ini')
+        
+        # conf 디렉토리 아래의 db.ini 파일 경로 설정
+        db_ini_path = os.path.join('conf', 'db.ini')
+        
+        self.config.read(db_ini_path)
         self.init_ui()
 
     def init_ui(self):
