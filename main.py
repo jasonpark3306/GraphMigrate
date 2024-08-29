@@ -2223,7 +2223,8 @@ class Migrate(QMainWindow):
         except Exception as e:
             self.log_message("Neo4j", f"Error getting label properties: {str(e)}", "ERROR")
             return []
-
+ 
+ 
     def get_relationship_types(self):
         try:
             # Check if the driver is not connected or closed
