@@ -355,8 +355,14 @@ class DbConfigEditor(QMainWindow):
             for key in self.config[section]:
                 value = getattr(self, f"{section}_{key}_edit").text()
                 self.config[section][key] = value
-
-        with open('db.ini', 'w') as configfile:
+        
+        # 'conf' 디렉토리가 없으면 생성
+        if not os.path.exists('conf'):
+            os.makedirs('conf')
+        
+        # 'conf' 디렉토리 안에 'db.ini' 파일 저장
+        config_path = os.path.join('conf', 'db.ini')
+        with open(config_path, 'w') as configfile:
             self.config.write(configfile)
 
     def test_connection(self, db_type):
