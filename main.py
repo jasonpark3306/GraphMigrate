@@ -46,13 +46,23 @@ from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 # Local imports
 from util import DraggableGraph, CypherHighlighter, DbConfigEditor, MigrationReport, MigrationWorker, CsvHighlighter, CsvViewerDialog
 import random
+from datetime import datetime
 
 class Migrate(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Graph Migrate 0.5")
-        self.setGeometry(100, 100, 1200, 800)
 
+        # Get the current date and time for the build time
+        build_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        # Get the application version
+        version = QApplication.instance().applicationVersion()
+        
+        # Set the window title with version and build time
+        self.setWindowTitle(f"Graph Migrate {version} (Built: {build_time})")
+        
+        self.setGeometry(100, 100, 1200, 800)
+        
         # Set up logging
         logging.basicConfig(level=logging.INFO, 
                             format='%(asctime)s %(levelname)s - %(message)s',
@@ -2316,5 +2326,5 @@ if __name__ == "__main__":
     
     m = Migrate()
     m.show()
-    sys.exit(app.exec())                 
+    sys.exit(app.exec())
                                          
