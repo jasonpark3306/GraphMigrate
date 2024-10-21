@@ -1,0 +1,6 @@
+C:\Users\J\GraphMigrate\GraphMigrate\obj\Debug\net8.0-windows\GraphMigrate.csproj.AssemblyReference.cache
+C:\Users\J\GraphMigrate\GraphMigrate\obj\Debug\net8.0-windows\GraphMigrate.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\J\GraphMigrate\GraphMigrate\obj\Debug\net8.0-windows\GraphMigrate.AssemblyInfoInputs.cache
+C:\Users\J\GraphMigrate\GraphMigrate\obj\Debug\net8.0-windows\GraphMigrate.AssemblyInfo.cs
+C:\Users\J\GraphMigrate\GraphMigrate\obj\Debug\net8.0-windows\GraphMigrate.csproj.CoreCompileInputs.cache
+C:\Users\J\GraphMigrate\GraphMigrate\obj\Debug\net8.0-windows\GraphMigrate.sourcelink.json

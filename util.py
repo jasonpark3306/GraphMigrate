@@ -377,14 +377,35 @@ class DbConfigEditor(QMainWindow):
                     password=self.config['postgresql']['password']
                 )
                 conn.close()
+                
+
             elif db_type == 'neo4j':
-                driver = GraphDatabase.driver(
-                    self.config['neo4j']['url'],
-                    auth=(self.config['neo4j']['user'], self.config['neo4j']['password'])
-                )
-                with driver.session() as session:
-                    session.run("RETURN 1")
-                driver.close()
+                uri = self.config['neo4j']['url']
+                user = self.config['neo4j']['user']
+                password = self.config['neo4j']['password']
+                
+                try:
+                    driver = GraphDatabase.driver(uri, auth=(user, password))
+                    with driver.session() as session:
+                        result = session.run("RETURN 1 AS num")
+                        record = result.single()
+                        if record and record["num"] == 1:
+                            self.log_message(f"Neo4j connection successful!", "green")
+                        else:
+                            self.log_message(f"Neo4j connection established, but unexpected result", "orange")
+                except neo4j.exceptions.ServiceUnavailable as e:
+                    self.log_message(f"Neo4j ServiceUnavailable error: {str(e)}", "red")
+                    self.log_message("Check if the Neo4j server is running and accessible", "red")
+                except neo4j.exceptions.AuthError as e:
+                    self.log_message(f"Neo4j authentication error: {str(e)}", "red")
+                    self.log_message("Verify your Neo4j username and password", "red")
+                except Exception as e:
+                    self.log_message(f"Unexpected Neo4j error: {str(e)}", "red")
+                finally:
+                    if 'driver' in locals():
+                        driver.close()
+
+
             elif db_type == 'mongodb':
                 if self.config['mongodb']['host'] == 'localhost' or self.config['mongodb']['host'].startswith('127.0.0.1'):
                     mongodb_url = f"mongodb://{self.config['mongodb']['host']}:{self.config['mongodb']['port']}/{self.config['mongodb']['database']}"
